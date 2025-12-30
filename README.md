@@ -2,8 +2,20 @@
 
 > A comprehensive AI-powered system for predicting and monitoring flood, earthquake, and landslide risks in real-time.
 
+## � Live Demo
+
+**Try it now!**
+- 🌐 **Frontend**: https://disasterai.onrender.com
+- 🔌 **Backend API**: https://disasteraibackend.onrender.com
+- 📊 **API Docs**: https://disasteraibackend.onrender.com/api/predictions
+
+> Note: Backend may take 30-60 seconds to start on first request (Render free tier). Subsequent requests will be instant.
+
+---
+
 ## 📋 Table of Contents
 
+- [Live Demo](#live-demo)
 - [Overview](#overview)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -47,6 +59,37 @@
 - 🎯 Risk cards with color-coded indicators (Low/Medium/High)
 - 📱 Mobile-friendly and touch-optimized
 - ⚡ Fast, smooth interactions with Vite
+
+---
+
+## ⚡ Quick Start (No Installation Required!)
+
+### Try the Live App
+1. **Open**: https://disasterai.onrender.com
+2. **Select a location** from the map or search bar
+3. **View real-time predictions** for Flood, Earthquake, and Landslide risks
+4. **Check alerts** in real-time via Socket.IO
+
+### Test the API
+```bash
+# Get prediction history
+curl https://disasteraibackend.onrender.com/api/predictions/history?limit=5
+
+# Create a prediction
+curl -X POST https://disasteraibackend.onrender.com/api/predictions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "latitude": 28.6139,
+    "longitude": 77.2090,
+    "locationName": "New Delhi"
+  }'
+
+# Get all alerts
+curl https://disasteraibackend.onrender.com/api/alerts
+
+# Health check
+curl https://disasteraibackend.onrender.com/health
+```
 
 ---
 
