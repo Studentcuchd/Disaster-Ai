@@ -5,7 +5,7 @@
 ## � Live Demo
 
 **Try it now!**
-- 🌐 **Frontend**: https://disasterai.onrender.com
+- 🌐 **Frontend**: https://disasterai-frontend.vercel.app/
 - 🔌 **Backend API**: https://disasteraibackend.onrender.com
 - 📊 **API Docs**: https://disasteraibackend.onrender.com/api/predictions
 
@@ -65,7 +65,7 @@
 ## ⚡ Quick Start (No Installation Required!)
 
 ### Try the Live App
-1. **Open**: https://disasterai.onrender.com
+1. **Open**: https://disasterai-frontend.vercel.app/
 2. **Select a location** from the map or search bar
 3. **View real-time predictions** for Flood, Earthquake, and Landslide risks
 4. **Check alerts** in real-time via Socket.IO
