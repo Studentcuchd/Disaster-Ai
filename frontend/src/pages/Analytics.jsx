@@ -8,7 +8,7 @@ const Analytics = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all'); // all, high, medium, low
-  const [limit, setLimit] = useState(100);
+  const [limit, setLimit] = useState(50);
 
   const load = async (overrideLimit) => {
     setLoading(true);
