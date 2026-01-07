@@ -7,11 +7,13 @@ const Analytics = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState('all'); // all, high, medium, low
+  const [limit, setLimit] = useState(100);
 
-  const load = async () => {
+  const load = async (overrideLimit) => {
     setLoading(true);
     try {
-      const data = await fetchHistory(100);
+      const effectiveLimit = overrideLimit ?? limit;
+      const data = await fetchHistory(effectiveLimit);
       setHistory(data);
     } finally {
       setLoading(false);
@@ -19,8 +21,9 @@ const Analytics = () => {
   };
 
   useEffect(() => {
-    load();
-  }, []);
+    load(limit);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [limit]);
 
   const filteredHistory = history.filter((item) => {
     if (filter === 'all') return true;
@@ -42,13 +45,26 @@ const Analytics = () => {
           <h1 className="text-3xl font-bold">Analytics</h1>
           <p className="text-white/60">Historical predictions, trends, and confidence analysis</p>
         </div>
-        <button
-          type="button"
-          onClick={load}
-          className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl text-sm transition-colors"
-        >
-          {loading ? '⏳ Refreshing...' : '🔄 Refresh'}
-        </button>
+        <div className="flex items-center gap-2">
+          <label className="text-xs text-white/60">Limit</label>
+          <select
+            value={limit}
+            onChange={(e) => setLimit(Number(e.target.value))}
+            className="bg-white/10 hover:bg-white/20 px-2 py-2 rounded-xl text-sm transition-colors outline-none"
+          >
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+            <option value={200}>200</option>
+            <option value={500}>500</option>
+          </select>
+          <button
+            type="button"
+            onClick={() => load(limit)}
+            className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl text-sm transition-colors"
+          >
+            {loading ? '⏳ Refreshing...' : '🔄 Refresh'}
+          </button>
+        </div>
       </div>
 
       {/* Summary Stats */}
