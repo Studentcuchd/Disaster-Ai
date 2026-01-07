@@ -6,15 +6,21 @@ import { fetchHistory } from '../services/api';
 const Analytics = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all'); // all, high, medium, low
   const [limit, setLimit] = useState(100);
 
   const load = async (overrideLimit) => {
     setLoading(true);
+    setError(null);
     try {
       const effectiveLimit = overrideLimit ?? limit;
       const data = await fetchHistory(effectiveLimit);
-      setHistory(data);
+      setHistory(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error('❌ Failed to load analytics:', err);
+      setError(err.message || 'Failed to load analytics data');
+      setHistory([]);
     } finally {
       setLoading(false);
     }
@@ -66,6 +72,19 @@ const Analytics = () => {
           </button>
         </div>
       </div>
+
+      {/* Error Message */}
+      {error && (
+        <div className="card p-4 bg-accentRed/10 border border-accentRed/20">
+          <p className="text-accentRed font-medium">❌ {error}</p>
+          <button
+            onClick={() => load(limit)}
+            className="mt-2 text-sm text-accentRed hover:underline"
+          >
+            Try again
+          </button>
+        </div>
+      )}
 
       {/* Summary Stats */}
       <div className="grid md:grid-cols-4 gap-4">
